@@ -1,29 +1,23 @@
-// import React, { useState, useContext } from 'react';
-// import { AuthContext } from '../context/AuthContext';
-// import { login } from '../services/apiService';
+// import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
+// import { login } from '../services/apiService'; // Replace with your API service
 
 // const Login: React.FC = () => {
-//   const authContext = useContext(AuthContext);
 //   const [email, setEmail] = useState<string>('');
 //   const [password, setPassword] = useState<string>('');
 //   const [error, setError] = useState('');
 //   const navigate = useNavigate();
-  
-
-//   if (!authContext) {
-//     return <div>Error: Auth context is not available.</div>;
-//   }
-
-//   //const { login } = authContext;
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
 //     try {
-//       const userData = await login(email, password); // Use API service for login
-//       authContext.login(userData); // Update context with logged-in user data
-//       alert(`Welcome, ${userData.name}!`);
-//       navigate('/'); 
+//       const userData = await login(email, password); // Call login API
+//       console.log(userData); 
+//       localStorage.setItem('user', JSON.stringify(userData)); // Store user in localStorage
+//       const displayName = userData?.name?.trim() || userData?.username?.trim() || 'User';
+
+//       alert(`Welcome, ${displayName}!`);
+//       navigate('/'); // Redirect to the homepage
 //     } catch (err) {
 //       console.error('Login failed:', err);
 //       setError('Invalid email or password');
@@ -71,9 +65,12 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const userData = await login(email, password); // Call login API
+      console.log(userData); 
       localStorage.setItem('user', JSON.stringify(userData)); // Store user in localStorage
-      alert(`Welcome, ${userData.username}!`);
-      navigate('/'); // Redirect to the homepage
+      //const displayName = userData?.name?.trim() || userData?.username?.trim() || 'User';
+
+      //alert(`Welcome, ${displayName}!`);
+      navigate(`/profile/${userData.id}`); // Redirect to the Profile page with user ID
     } catch (err) {
       console.error('Login failed:', err);
       setError('Invalid email or password');
@@ -99,11 +96,10 @@ const Login: React.FC = () => {
         required
         style={{ marginBottom: '10px', display: 'block' }}
       />
-      <button type="submit">Login</button>
+      <button className='btn btn-primary' type="submit">Login</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </form>
   );
 };
 
 export default Login;
-

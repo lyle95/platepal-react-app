@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Followers from './pages/Followers';
+import Following from './pages/Following';
 import Search from './pages/Search';
 import RecipeDetails from './pages/RecipeDetails';
 import PostRecipe from './pages/PostRecipe';
 import Navbar from './components/Navbar';
 import Register from './pages/Register';
+import TeamGithub from './pages/TeamGithub';
 
 const AppRouter: React.FC = () => (
   <Router>
@@ -15,12 +18,15 @@ const AppRouter: React.FC = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/team-github" element={<TeamGithub />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile/:userID" element={<Profile />} />
+      <Route path="/followers/:userId" element={<Followers />} />
+        <Route path="/following/:userId" element={<Following />} />
       <Route path="/details/:recipeID" element={<RecipeDetails />} />
       <Route path="/post-recipe" element={<PostRecipe />} />
-      <Route path="/edit-recipe/:recipeID" element={<PostRecipe />} /> 
+      <Route path="/edit-recipe/:recipeID" element={<PostRecipe />} />
     </Routes>
   </Router>
 );
